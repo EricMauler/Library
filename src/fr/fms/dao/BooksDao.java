@@ -27,12 +27,12 @@ public class BooksDao implements Dao<Books> {
 	
 	//exemple d'insertion avec preparedStatement -> évite les attaques par injection sql
 	public void createPrepared(Books obj) {
-		String str = "INSERT INTO T_Articles (Title, Author, Edition, UnitaryPrice) VALUES (?,?,?,?);";		//ToDo IdCategory
+		String str = "INSERT INTO T_Books (Title, Author, Edition, UnitaryPrice) VALUES (?,?,?,?);";		//ToDo IdCategory
 		try (PreparedStatement ps = connection.prepareStatement(str)){
 			ps.setString(1, obj.getTitle());
 			ps.setString(2, obj.getAuthor());
 			ps.setString(3, obj.getEdition());	
-			ps.setDouble(3, obj.getPrice());	
+			ps.setDouble(4, obj.getPrice());	
 			
 			if( ps.executeUpdate() == 1)	System.out.println("insertion ok");
 		} catch (SQLException e) {
@@ -58,7 +58,7 @@ public class BooksDao implements Dao<Books> {
 			String str = "UPDATE T_Books set Title='" + obj.getTitle() +"' , " +
 							                   "Author='" 		+ obj.getAuthor() +"' , " +
 					                           "Edition= '" + obj.getEdition() +"' , " +
-							                   "UnitaryPrice=" + obj.getPrice() + " where idArticle=" + obj.getId() + ";";			
+							                   "UnitaryPrice=" + obj.getPrice() + " where IdBook=" + obj.getId() + ";";			
 			statement.executeUpdate(str);
 			return true;
 		} catch (SQLException e) {
@@ -102,7 +102,7 @@ public class BooksDao implements Dao<Books> {
 	
 	public ArrayList<Books> readAllByCat(int id) {
 		ArrayList<Books> books = new ArrayList<Books>();
-		String strSql = "SELECT * FROM T_Books where idCategory=" + id;		
+		String strSql = "SELECT * FROM T_Books where IdBook=" + id;		
 		try(Statement statement = connection.createStatement()){
 			try(ResultSet resultSet = statement.executeQuery(strSql)){ 			
 				while(resultSet.next()) {
