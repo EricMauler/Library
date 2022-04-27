@@ -57,4 +57,8 @@ public interface IBusiness {
 	 * @return Liste d'articles
 	 */
 	public ArrayList<Books> readArticlesByCatId(int idCat);
+
+	ArrayList<Books> readbooks();
+
+	Books readOneBook(int id);
 }

@@ -8,6 +8,7 @@ public class Books {
 	private String edition;
 	private double price;
 	private int category;
+	private int quantity=1;
 	
 	public Books(int id, String title, String author, String edition, double price, int category) {
 		super();
@@ -34,6 +35,10 @@ public class Books {
 		this.author = author;
 		this.edition = edition;
 		this.price = price;
+	}
+	
+	public int getQuantity() {
+		return quantity;
 	}
 
 	public String toString() {
@@ -95,6 +100,11 @@ public class Books {
 
 	public void setCategory(int category) {
 		this.category = category;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+		
 	}
 	
 	

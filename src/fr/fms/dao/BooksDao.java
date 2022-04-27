@@ -82,7 +82,7 @@ public class BooksDao implements Dao<Books> {
 	@Override
 	public ArrayList<Books> readAll() {
 		ArrayList<Books> books = new ArrayList<Books>();
-		String strSql = "SELECT * FROM T_Books";		
+		String strSql = "SELECT * FROM T_Books join t_categories on t_books.IdCategory = t_categories.IdCategory;";		
 		try(Statement statement = connection.createStatement()){
 			try(ResultSet resultSet = statement.executeQuery(strSql)){ 			
 				while(resultSet.next()) {
