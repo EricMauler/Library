@@ -1,3 +1,3 @@
 # Library
 AppLibrary
-![LibraryUseCase](LibraryUseCase.png)
+![LibrarySequence](LibrarySequence.png)
