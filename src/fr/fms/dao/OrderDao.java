@@ -12,14 +12,14 @@ public class OrderDao implements Dao<Order> {
 
 	@Override
 	public boolean create(Order obj) {
-		String str = "INSERT INTO T_Orders (Amount , IdUser) VALUES (?,?);";	
+		String str = "INSERT INTO T_Orders (TotalAmount , IdCustomer) VALUES (?,?);";	
 		try (PreparedStatement ps = connection.prepareStatement(str,Statement.RETURN_GENERATED_KEYS)){	
 			ps.setDouble(1, obj.getTotalAmount());
-			ps.setInt(2, obj.getIdOrder());
+			ps.setInt(2, obj.getIdCustomer());
 			ps.executeUpdate();
 			try(ResultSet generatedKeySet = ps.getGeneratedKeys()){
 				if(generatedKeySet.next()) {
-					obj.setIdOrder(generatedKeySet.getInt(1));
+					obj.setIdCustomer(generatedKeySet.getInt(1));
 					return true;
 				}	
 			}

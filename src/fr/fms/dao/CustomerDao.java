@@ -13,7 +13,7 @@ public class CustomerDao implements Dao<Customer> {
 
 	@Override
 	public boolean create(Customer obj) {
-		String str = "INSERT INTO T_Customer (Login, Password) VALUES (?,?);";
+		String str = "INSERT INTO T_Customers (Login, Password) VALUES (?,?);";
 		try (PreparedStatement ps = connection.prepareStatement(str)){
 			ps.setString(1, obj.getLogin());
 			ps.setString(2, obj.getPwd());			
@@ -28,7 +28,7 @@ public class CustomerDao implements Dao<Customer> {
 	@Override
 	public Customer read(int id) {
 		try (Statement statement = connection.createStatement()){
-			String str = "SELECT * FROM T_Users where IdUser=" + id + ";";									
+			String str = "SELECT * FROM T_Customers where IdCustomer=" + id + ";";									
 			ResultSet rs = statement.executeQuery(str);
 			if(rs.next()) 
 				return new Customer(rs.getInt(1) , rs.getString(2) , rs.getString(3), str, str, str);
@@ -42,8 +42,8 @@ public class CustomerDao implements Dao<Customer> {
 	@Override
 	public boolean update(Customer obj) {
 		try (Statement statement = connection.createStatement()){
-			String str = "UPDATE T_Users set Login='" + obj.getLogin() +"' , " +
-							                "Password='" 		+ obj.getPwd() +"' , " + " where idUser=" + obj.getId() + ";";			
+			String str = "UPDATE T_Customers set Login='" + obj.getLogin() +"' , " +
+							                "Password='" 		+ obj.getPwd() +"' , " + " where idCustomer=" + obj.getId() + ";";			
 			statement.executeUpdate(str);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,7 +55,7 @@ public class CustomerDao implements Dao<Customer> {
 	@Override
 	public boolean delete(Customer obj) {
 		try (Statement statement = connection.createStatement()){
-			String str = "DELETE FROM T_User where IdUser=" + obj.getId() + ";";									
+			String str = "DELETE FROM T_Customers where IdCustomer =" + obj.getId() + ";";									
 			statement.executeUpdate(str);		
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -66,21 +66,21 @@ public class CustomerDao implements Dao<Customer> {
 
 	@Override
 	public ArrayList<Customer> readAll() {
-		ArrayList<Customer> users = new ArrayList<Customer>();
-		String strSql = "SELECT * FROM T_Users";		
+		ArrayList<Customer> customer = new ArrayList<Customer>();
+		String strSql = "SELECT * FROM T_Customers";		
 		try(Statement statement = connection.createStatement()){
 			try(ResultSet resultSet = statement.executeQuery(strSql)){ 			
 				while(resultSet.next()) {
 					int rsId = resultSet.getInt(1);	
 					String rsLogin = resultSet.getString(2);
 					String rsPassword = resultSet.getString(3);							
-					users.add((new Customer(rsId,rsLogin,rsPassword)));						
+					customer.add((new Customer(rsId,rsLogin,rsPassword)));						
 				}	
 			}
 		} catch (SQLException e) {
 			//e.printStackTrace();
 			logger.severe("pb Sql :" + e);
 		}			
-		return users;
+		return customer;
 	}
 }

@@ -2,23 +2,28 @@ package fr.fms.business;
 
 import java.awt.print.Book;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-
 import fr.fms.dao.BooksDao;
 import fr.fms.dao.CategoriesDao;
 import fr.fms.dao.CustomerDao;
 import fr.fms.dao.Dao;
 import fr.fms.dao.DaoFactory;
+import fr.fms.dao.OrderDao;
+import fr.fms.dao.OrderItemDao;
 import fr.fms.entities.Article;
 import fr.fms.entities.Books;
 import fr.fms.entities.Categories;
 import fr.fms.entities.Customer;
+import fr.fms.entities.Order;
+import fr.fms.entities.OrderItem;
 
 public class IBusinessImpl implements IBusiness {
 	private HashMap<Integer,Books> cart;
 	private Dao<Books> BooksDao = DaoFactory.getBookDao();
 	private Dao<Customer> CustomerDao = DaoFactory.getCustomerDao();
 	private Dao<Categories> CategoriesDao = DaoFactory.getCategoriesDao();
+	
 	
 	public IBusinessImpl() {
 		this.cart = new HashMap<Integer,Books>();
@@ -70,8 +75,17 @@ public class IBusinessImpl implements IBusiness {
 	}
 
 	@Override
-	public int order(int idUser) {
-		// TODO Auto-generated method stub
+	public int order(int IdCustomer) {
+		if(CustomerDao.read(IdCustomer) != null) {
+			double total = getTotal(); 
+			Order order = new Order(total, new Date(), IdCustomer);
+			if(OrderDao.create(order)) {	//ajout en base de la commande
+				for(Books books : cart.values()) {	//ajout des commandes minifiées associées
+					OrderItemDao.create(new OrderItem(0, books.getId(), books.getQuantity(), books.getPrice(), books.getIdOrder()));
+				}
+				return order.getIdOrder();
+			}
+		}
 		return 0;
 	}
 
@@ -83,16 +97,13 @@ public class IBusinessImpl implements IBusiness {
 
 	@Override
 	public ArrayList<Categories> readCategories() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return CategoriesDao.readAll();
+		}
 
 	@Override
 	public ArrayList<Books> readArticlesByCatId(int idCat) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+		return ((BooksDao) BooksDao).readAllByCat(idCat);
+		}
 	@Override
 	public ArrayList<Books> readbooks() {
 		// TODO Auto-generated method stub
@@ -112,4 +123,5 @@ public class IBusinessImpl implements IBusiness {
 	public Books readOneArticle(int id) {
 		// TODO Auto-generated method stub
 		return null;
-	}}
+	}
+}

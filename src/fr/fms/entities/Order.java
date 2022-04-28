@@ -3,23 +3,16 @@ package fr.fms.entities;
 import java.util.Date;
 
 public class Order {
-	private int idOrder;
+	private int IdOrder;
+	private int IdCustomer;
 	private double totalAmount;
 	private Date date;
 	
-	public Order(int idOrder, double totalAmount, Date date) {
+	public Order(double totalAmount, Date date, int IdCustomer) {
 		super();
-		this.idOrder = idOrder;
 		this.totalAmount = totalAmount;
 		this.date = date;
-	}
-
-	public int getIdOrder() {
-		return idOrder;
-	}
-
-	public void setIdOrder(int idOrder) {
-		this.idOrder = idOrder;
+		this.setIdCustomer(IdCustomer);
 	}
 
 	public double getTotalAmount() {
@@ -36,6 +29,18 @@ public class Order {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public int getIdCustomer() {
+		return IdCustomer;
+	}
+
+	public void setIdCustomer(int idCustomer) {
+		IdCustomer = idCustomer;
+	}
+
+	public int getIdOrder() {
+		return IdOrder;
 	}
 	
 	

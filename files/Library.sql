@@ -25,7 +25,7 @@ CREATE TABLE T_Categories (
     Genre   		    varchar(30)	NOT NULL )
     ENGINE = InnoDB;
     
-    INSERT INTO T_Categories (Genre) VALUES ("Poésie");
+    INSERT INTO T_Categories (Genre) VALUES ("Poesie");
     INSERT INTO T_Categories (Genre) VALUES ("Philosophie");
     INSERT INTO T_Categories (Genre) VALUES ("Theatre");
     
@@ -37,3 +37,17 @@ CREATE TABLE T_Categories (
     
     select IdBook,T_Books.Title,Author,Edition,UnitaryPrice,Genre
 from t_books join t_categories on t_books.IdCategory = t_categories.IdCategory;
+
+CREATE TABLE T_Customers(
+	IdCustomer		int(4)		PRIMARY KEY AUTO_INCREMENT,
+    Login   	    varchar(30)	NOT NULL, 
+    Password		varchar(30)	NOT NULL)
+    ENGINE = InnoDB;
+    
+     INSERT INTO T_Customers (Login, Password) VALUES ("Toto", "123");
+     
+     CREATE TABLE T_Orders(
+     IdOrder	int(4)		PRIMARY KEY AUTO_INCREMENT,
+     TotalAmount	 varchar(30)	NOT NULL,
+     IdCustomer varchar(30)	NOT NULL)
+     ENGINE = InnoDB;

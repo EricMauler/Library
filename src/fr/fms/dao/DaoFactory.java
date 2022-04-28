@@ -16,8 +16,7 @@ public class DaoFactory {
 	}
 
 	public static Dao<Customer> getCustomerDao() {
-		// TODO Auto-generated method stub
-		return null;
+		return new CustomerDao();
 	}
 
 	public static Dao<Books> getBookDao() {

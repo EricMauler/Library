@@ -1,6 +1,5 @@
 package fr.fms.app;
 import java.util.Scanner;
-
 import fr.fms.business.IBusinessImpl;
 import fr.fms.dao.BooksDao;
 import fr.fms.entities.Books;
@@ -16,7 +15,6 @@ public class LibraryApp {
 	public static void main(String[] args) {
 		System.out.println("Bonjour et bienvenu dans ma librairie en ligne, voici la liste des livres en stock\n");
 		displayBooks();
-		testReadBooks();
 		int choice = 0;
 		while(choice != 8) {
 			displayMenu();
@@ -110,7 +108,7 @@ public class LibraryApp {
 	}
 	
 	public static void remBook() {
-		System.out.println("Selectionner l'id de l'article à supprimer du panier");
+		System.out.println("Selectionner l'id du livre à supprimer du panier");
 		int id = scanInt();
 		business.rmFromCart(id);
 		displayCart(false);
@@ -124,18 +122,18 @@ public class LibraryApp {
 			business.addToCart(book);
 			displayCart(false);
 		}
-		else System.out.println("l'article que vous souhaitez ajouter n'existe pas, pb de saisi id");
+		else System.out.println("le livre que vous souhaitez ajouter n'existe pas, pb de saisi id");
 	} 
 
 		public static void displayMenu() {	
 			if(login != null)	System.out.print("Compte : " + login);
 			System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
-			System.out.println("1 : Ajouter un article au panier");
-			System.out.println("2 : Retirer un article du panier");
+			System.out.println("1 : Ajouter un livre au panier");
+			System.out.println("2 : Retirer un livre du panier");
 			System.out.println("3 : Afficher le contenu de mon panier, le total et passer commande");
-			System.out.println("4 : Afficher tous les articles en stock");
+			System.out.println("4 : Afficher tous les livres en magasin");
 			System.out.println("5 : Afficher toutes les catégories en base");
-			System.out.println("6 : Afficher tous les articles d'une catégorie");
+			System.out.println("6 : Afficher tous les livres d'une catégorie");
 			System.out.println("7 : Connexion à votre compte");
 			System.out.println("8 : sortir de l'application");
 		}
@@ -148,20 +146,11 @@ public class LibraryApp {
 			return scan.nextInt();
 		}
 	
- private static void testReadBooks() {
-	BooksDao booksdao = new BooksDao();
-	for(Books books : booksdao.readAll()) {	System.out.println(books);}}
-//	Books books = booksdao.read(2);
-//	System.out.println(books);
-//	    books.setTitle("Lombilic des limbes");
-//	    booksdao.update(books);
-	
- //  	System.out.println(books);
-	
 	public static void displayBooks() { 		
-		String titles = Books.centerString("IDENTIFIANT") + Books.centerString("TITRE") + Books.centerString("AUTEUR") + Books.centerString("EDITION") +  Books.centerString("PRIX") ;
-		System.out.println(titles);}
-//		business.readbooks().forEach(System.out::println);}
+		String titles = Books.centerString("IDENTIFIANT") + Books.centerString("TITRE") + Books.centerString("AUTEUR") + Books.centerString("EDITION") +  Books.centerString("PRIX") +  Books.centerString("GENRE") ;
+		System.out.println(titles);
+		BooksDao booksdao = new BooksDao();
+		for(Books books : booksdao.readAll()) {	System.out.println(books);}}
 	
 }
 	

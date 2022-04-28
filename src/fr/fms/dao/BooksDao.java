@@ -90,7 +90,8 @@ public class BooksDao implements Dao<Books> {
 					String rsTitle = resultSet.getString(2);
 					String rsAuthor = resultSet.getString(3);
 					String rsEdition = resultSet.getString(4);
-					double rsPrice = resultSet.getDouble(5);		
+					double rsPrice = resultSet.getDouble(5);	
+					
 					books.add((new Books(rsId,rsTitle,rsAuthor, rsEdition, rsPrice)));						
 				}	
 			}
